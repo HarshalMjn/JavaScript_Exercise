@@ -1,17 +1,17 @@
 // 1)Write a function that takes two numbers as arguments and returns their sum.
 
-// function add(a,b) {
-//     return a+b;
-// }
-// const result = add(5,6);
-// console.log(result);
+ function add(a,b) {
+    return a+b;
+  }
+ const result = add(5,6);
+ console.log(result);
 
 //Arrow funtion
-// const addNumbers = (a, b) => {
-//     return a + b;
-//   };
-// const result = addNumbers(5, 10);
-// console.log(result)
+ const addNumbers = (a, b) => {
+    return a + b;
+  };
+ const result1 = addNumbers(5, 10);
+ console.log(result1)
 
 //2)Write a function that takes a string as an argument and returns its length.
 
