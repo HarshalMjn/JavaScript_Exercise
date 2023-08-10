@@ -128,6 +128,112 @@ fetchData('https://jsonplaceholder.typicode.com/todos/1', (error, data) => {
 });
 //Note:The Fetch API is built into modern web browsers and allows developers to make HTTP requests to servers using JavaScript.
 
+// 7) Write a function to read a file using the Node.js File System module and handle the contents with a callback.
+const fs = require('fs');
+
+function readFileContents(filepath, callback) {
+  // Use the readFile method of the fs module to read the contents of the file
+  fs.readFile(filepath, 'utf8', (error, contents) => {
+    if (error) {
+      // If an error occurs, call the callback with the error as the first argument
+      callback(error);
+    } else {
+      // If the file is read successfully, call the callback with the contents as the second argument
+      callback(null, contents);
+    }
+  });
+}
+
+// Example usage
+readFileContents('example.txt', (error, contents) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(contents);
+  }
+});
+
+
+// 8) Write a function to load an image asynchronously and handle the load event with a callback.
+
+function loadImageAsync(url, callback) {
+  const img = new Image();
+
+  // Set up event listener for when the image has loaded
+  img.addEventListener('load', () => {
+    callback(null, img);
+  });
+
+  // Set up event listener for when there's an error loading the image
+  img.addEventListener('error', () => {
+    callback(new Error(`Failed to load image at ${url}`));
+  });
+
+  // Start loading the image
+  img.src = url;
+}
+
+// Example usage:
+loadImageAsync('https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg', (error, img) => {
+  if (error) {
+    console.error(error);
+  } else {
+    // Add the loaded image to the page
+    document.body.appendChild(img);
+  }
+});
+
+
+// 9) Write a function to simulate an asynchronous delay using a callback.
+function simulateDelay(delay, callback) {
+  setTimeout(callback, delay);
+}
+
+// Example usage:
+console.log("Before delay");
+
+simulateDelay(2000, () => {
+  console.log("After delay");
+});
+
+console.log("Function finished executing");
+
+// Output:
+// Before delay
+// Function finished executing
+// After delay (after a 2 second delay)   
+
+
+
+// 10) Write a function to download a file asynchronously and handle the progress and completion events with callbacks.
+
+function downloadFile(url, progressCallback, completionCallback) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  xhr.responseType = "blob"; // Specify the response type as blob
+
+  xhr.addEventListener("progress", (event) => {
+    // Calculate the progress percentage and invoke the progress callback
+    const progress = Math.round((event.loaded / event.total) * 100);
+    progressCallback(progress);
+  });
+
+  xhr.addEventListener("load", () => {
+    // Invoke the completion callback with the downloaded blob object
+    completionCallback(xhr.response);
+  });
+
+  xhr.send();
+}
+
+// Test case
+const url = "https://dot-batch-project-assets.vercel.app/devdetective-images.zip";
+downloadFile(
+  url,
+  (progress) => console.log(`Download progress: ${progress}%`), // progress callback logs the progress percentage
+  (blob) => console.log(`File downloaded. Blob size: ${blob.size} bytes`) // completion callback logs the size of the downloaded blob
+);
+
 
 
 
